@@ -1,0 +1,27 @@
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: ContainerSource
+metadata:
+  name: source-sqs
+spec:
+  image: jonatasbaldin/source-sqs
+  env:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: awscreds
+          key: aws_access_key_id
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: awscreds
+          key: aws_secret_access_key
+    - name: AWS_REGION
+      value: us-east-1
+    - name: QUEUE
+      value: quarantine-knative
+
+  sink:
+    ref:
+      apiVersion: eventing.knative.dev/v1alpha1
+      kind: Broker
+      name: default

@@ -1,0 +1,14 @@
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Trigger
+metadata:
+  name: trigger-sqs
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: com.amazon.sqs.message
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: consumer-sqs

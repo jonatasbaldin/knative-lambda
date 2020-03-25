@@ -1,0 +1,12 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: quarantine-from-file
+spec:
+  template:
+    spec:
+      containers:
+      - image: jonatasbaldin/quarantine
+        env:
+        - name: NAME
+          value: jojo
